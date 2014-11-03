@@ -28,34 +28,29 @@ What is the value of the first triangle number to have over five hundred divisor
 public class Problem12_HighlyDivisibleTriangularNumber
 {
     public static void main(String args[]){
-        int counter = 0;
-        int number = 0;
-        boolean found = false;
-        int numOfFactors;
-        while(!found){
-            numOfFactors = 0;//to account for one being the first factor
-            number += counter;
-            //System.out.println(number);
-            for(int i=1; i<=number; i++)
-            {
-                //System.out.println(isFactor(i,number) + "  " + i + "   " + counter);
-                if(isFactor(i,number)){
-                    numOfFactors++;
-                }
-            }
-            if(numOfFactors > 500){
-                found = true;
-                
-            }
-            counter++;
-            //System.out.println(numOfFactors);
+        long number = 0;
+        long total = 0;
+        int totalFactors = 2;
+        while(totalFactors < 500){
+        	total = number + total;
+        	totalFactors = 2;//1 for 1, and 1 for total
+        	//taking some of the stress off
+        	if(total > 100000){
+        	for(int i=2; i<total/2+1; i++){
+        		boolean factor = isFactor(i, total);
+        		if(factor)	
+        			totalFactors++;
+        	}
+        	}
+        	//System.out.println("Triangle number: " + total + " Number of Factors: " + totalFactors);
+        	number++;
         }
-        System.out.println(number);
+        System.out.println("number: " + total + "total factors: " + totalFactors);
     }
-    public static boolean isFactor(int possibleFactor, int number){
-        if(number>0 && number%possibleFactor == 0)
-            return true;
-        
+    public static boolean isFactor(int possibleFactor, long number){
+        if(number>0 && number%possibleFactor == 0){
+        	return true;
+        }
         return false;
         
     }
